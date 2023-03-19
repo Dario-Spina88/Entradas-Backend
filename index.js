@@ -1,65 +1,88 @@
-let getProducts = [];
+let productos = [];
 
 class ProductManager{
-    constructor(title, description,price,thumbnail,code,stock){
-        this.title = title
-        this.description = description
-        this.price = price
-        this.thumbnail = thumbnail
-        this.code = 111
-        this.stock = stock
+    constructor(){
+        this.products = productos
     }
 
-    static productCode = 111 
+    addProduct (newPorduct){
 
-    agregarId (){
-        this.code++
-        ProductManager.productCode++
+        if (!newPorduct.title || 
+            !newPorduct.description || 
+            !newPorduct.price || 
+            !newPorduct.thumbnail || 
+            !newPorduct.code || 
+            !newPorduct.stock) return 'completar todos los campos'
 
-    }
+            let product = this.products.find(prod => prod.code === newPorduct.code)
+            if(product) return 'Ya fue ingresado con este codigo'
 
-    getProducts(){
+            if(this.products.length === 0){
+                return this.products.push({id: 1, ...newPorduct})
+            }
+
+        return [ ...this.products, {id: this.products[this.products.length-1].id + 1 , ...newPorduct}]
         
     }
 
-    getProductById(){
-        // if("No se encontro la entrada")
+    getProducts(){
+        return this.products
+    }
+
+    getProductById(id){
+        let product = this.products.find(prod => prod.id === id)
+        if (!product) return 'Not Found'
+        return product
     }
 }
 
-const productManager = new ProductManager('Recital Rock', 'Divididos', '$7500', 'img', 'A999','6')
-console.log(productManager.title)
-console.log(productManager.description)
-console.log(productManager.price)
-console.log(productManager.thumbnail)
-console.log(productManager.code)
-console.log(productManager.stock)
+const product = new ProductManager()
 
-const productManager2 = new ProductManager('Recital cumbia', 'Damas Gratis', '$4500', 'img', 'B888','4')
-console.log(productManager2.title)
-console.log(productManager2.description)
-console.log(productManager2.price)
-console.log(productManager2.thumbnail)
-console.log(productManager2.code)
-console.log(productManager2.stock)
+product.addProduct({title:'Producto'})
 
-const productManager3 = new ProductManager('Festival Reagge', 'Los Cafres', '$5000', 'img', 'C555','2')
-console.log(productManager3.title)
-console.log(productManager3.description)
-console.log(productManager3.price)
-console.log(productManager3.thumbnail)
-console.log(productManager3.code)
-console.log(productManager3.stock)
+product.addProduct({
+    title: 'Recital Rock',
+    description: 'Divididos',
+    price: 7500,
+    thumbnail: 'Link',
+    code: 111,
+    stock: 6
+})
 
-const productManager4 = new ProductManager('Electronica', 'Hernan Cattaneo', '$10000', 'img', 'D666','4')
-console.log(productManager4.title)
-console.log(productManager4.description)
-console.log(productManager4.price)
-console.log(productManager4.thumbnail)
-console.log(productManager4.code)
-console.log(productManager4.stock)
+// aplica que ya ingreso este producto
 
+console.log(
+    product.addProduct({
+        title: 'Festival Reagge',
+        description: 'Los Cafres',
+        price: 5000,
+        thumbnail: 'Link',
+        code: 222,
+        stock: 4
+    })
+    )
 
-productManager.agregarId()
+    console.log(
+        product.addProduct({
+            title: 'Festival Reagge',
+            description: 'Los Cafres',
+            price: 5000,
+            thumbnail: 'Link',
+            code: 222,
+            stock: 4
+        })
+        )
 
-console.log(ProductManager.productCode)
+product.addProduct({
+    title: 'Electronica',
+    description: 'Hernan Cattaneo',
+    price: 10000,
+    thumbnail: 'Link',
+    code: 333,
+    stock: 2
+})
+
+console.log(product.getProducts())
+
+// no esta este producto
+console.log(product.getProductById(4))
