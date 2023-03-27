@@ -1,88 +1,132 @@
-let productos = [];
+const fs = require('fs')
 
 class ProductManager{
     constructor(){
-        this.products = productos
+        this.products = []
+        this.path = './entradas.json'
     }
 
-    addProduct (newPorduct){
+    appendProduct = async () => {
+        const productJSON = JSON.stringify(this.products, null, 2);
+        await fs.promises.writeFile(this.path, productJSON)
+    }
 
-        if (!newPorduct.title || 
-            !newPorduct.description || 
-            !newPorduct.price || 
-            !newPorduct.thumbnail || 
-            !newPorduct.code || 
-            !newPorduct.stock) return 'completar todos los campos'
+    addProduct (title, description, price, thumbnail, code, stock){
+        const product = {
+        title, 
+        description, 
+        price, 
+        thumbnail, 
+        code, 
+        stock,
+        }
 
-            let product = this.products.find(prod => prod.code === newPorduct.code)
-            if(product) return 'Ya fue ingresado con este codigo'
-
-            if(this.products.length === 0){
-                return this.products.push({id: 1, ...newPorduct})
-            }
-
-        return [ ...this.products, {id: this.products[this.products.length-1].id + 1 , ...newPorduct}]
+        if(this.products.length === 0){
+            product.id = 1
+        }
+        else{
+            product.id = this.products[this.products.length - 1].id + 1
+        }
+        
+        if (Object.values(product).every(obj => obj)){
+            this.products.push(product)
+            this.appendProduct()
+        }else{
+            return console.log("completar todos los campos")
+        }
         
     }
 
-    getProducts(){
-        return this.products
+    getProducts = async () => {
+        try{            
+            const getFileProducts = await fs.promises.readFile(this.path, 'utf-8')
+            console.log(getFileProducts)
+
+        } catch(error){
+            console.log(error);
+        }
     }
 
-    getProductById(id){
-        let product = this.products.find(prod => prod.id === id)
-        if (!product) return 'Not Found'
-        return product
+    getProductById = async (id) => {
+        try{
+            const getFileProduct = await fs.promises.readFile(this.path, 'utf-8')
+            const product = JSON.parse(getFileProduct)
+            console.log(product[id-1]);
+        }
+        catch(error){
+            console.log(error);
+        }
     }
+
+    updateProduct = async (id, obj) => {
+        try {
+            const getFileProducts = await fs.promises.readFile(this.path, 'utf-8')
+            const products = JSON.parse(getFileProducts)
+
+            const retornaObj = Object.assign(products[id-1], obj)
+            console.log(products[id-1])
+            this.products = products
+            this.appendProduct()
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    deleteProduct = async (id) => {
+        try {
+            const getFileProducts = await fs.promises.readFile(this.path, 'utf-8')
+            const products = JSON.parse(getFileProducts)
+
+            console.log(products.splice(id-1,1), 'Entrada eliminada')
+            this.products = products
+            this.appendProduct()
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
 }
 
-const product = new ProductManager()
+const instancia = new ProductManager();
 
-product.addProduct({title:'Producto'})
+instancia.addProduct('Recital Rock', 'Divididos', 7500, 'Link', 111, 6)
+instancia.addProduct('Festival Reagge', 'Los Cafres', 5000, 'Link', 222, 4)
+instancia.addProduct('Electronica', 'Hernan Cattaneo', 10000, 'Link', 333, 2)
+instancia.addProduct('Festival Cumbia', 'Damas Gratis', 3000, 'Link', 444, 4)
 
-product.addProduct({
-    title: 'Recital Rock',
-    description: 'Divididos',
-    price: 7500,
-    thumbnail: 'Link',
-    code: 111,
-    stock: 6
-})
+instancia.getProducts();
+instancia.getProductById(2);
+instancia.updateProduct(2,{"price": 7500, "stock": 2}); 
 
-// aplica que ya ingreso este producto
+instancia.deleteProduct(1)
 
-console.log(
-    product.addProduct({
-        title: 'Festival Reagge',
-        description: 'Los Cafres',
-        price: 5000,
-        thumbnail: 'Link',
-        code: 222,
-        stock: 4
-    })
-    )
 
-    console.log(
-        product.addProduct({
-            title: 'Festival Reagge',
-            description: 'Los Cafres',
-            price: 5000,
-            thumbnail: 'Link',
-            code: 222,
-            stock: 4
-        })
-        )
 
-product.addProduct({
-    title: 'Electronica',
-    description: 'Hernan Cattaneo',
-    price: 10000,
-    thumbnail: 'Link',
-    code: 333,
-    stock: 2
-})
 
-console.log(product.getProducts())
 
-// no esta este producto
-console.log(product.getProductById(4))
+
+// Creando un archivo
+
+// const {promises, appendFile} = require('fs')
+// const fs = promises 
+
+// fs.writeFile('./data.txt','Lugar: Campo\n', 'utf-8' )
+
+// const updateProduct = async()=>{
+//     try{
+//         // await fs.appendFile('./data.txt', 'Lugar: Campo\n', 'utf-8')
+
+//         let product = await fs.readFile('./package.json', 'utf-8')
+//         const respuestaParseada = JSON.parse(product)
+//         console.log(respuestaParseada)
+//         const respParseadaJson = respuestaParseada
+
+
+//     } catch(error){
+//         console.log(error)
+//     }
+// }
+
+// updateProduct()
