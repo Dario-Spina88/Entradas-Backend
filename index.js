@@ -11,7 +11,7 @@ class ProductManager{
         await fs.promises.writeFile(this.path, productJSON)
     }
 
-    addProduct (title, description, price, thumbnail, code, stock){
+    addProduct = async (title, description, price, thumbnail, code, stock) => {
         const product = {
         title, 
         description, 
@@ -91,42 +91,15 @@ class ProductManager{
 
 const instancia = new ProductManager();
 
-instancia.addProduct('Recital Rock', 'Divididos', 7500, 'Link', 111, 6)
-instancia.addProduct('Festival Reagge', 'Los Cafres', 5000, 'Link', 222, 4)
-instancia.addProduct('Electronica', 'Hernan Cattaneo', 10000, 'Link', 333, 2)
-instancia.addProduct('Festival Cumbia', 'Damas Gratis', 3000, 'Link', 444, 4)
+// instancia.addProduct('Recital Rock', 'Divididos', 7500, 'Link', 111, 6)
+// instancia.addProduct('Festival Reagge', 'Los Cafres', 5000, 'Link', 222, 4)
+// instancia.addProduct('Electronica', 'Hernan Cattaneo', 10000, 'Link', 333, 2)
+// instancia.addProduct('Festival Cumbia', 'Damas Gratis', 3000, 'Link', 444, 4)
 
-instancia.getProducts();
-instancia.getProductById(2);
-instancia.updateProduct(2,{"price": 7500, "stock": 2}); 
+instancia.appendProduct()
+// instancia.getProducts();
+// instancia.getProductById(2);
+// instancia.updateProduct(2,{"price": 7500, "stock": 2}); 
 
-instancia.deleteProduct(1)
+// instancia.deleteProduct(1)
 
-
-
-
-
-
-// Creando un archivo
-
-// const {promises, appendFile} = require('fs')
-// const fs = promises 
-
-// fs.writeFile('./data.txt','Lugar: Campo\n', 'utf-8' )
-
-// const updateProduct = async()=>{
-//     try{
-//         // await fs.appendFile('./data.txt', 'Lugar: Campo\n', 'utf-8')
-
-//         let product = await fs.readFile('./package.json', 'utf-8')
-//         const respuestaParseada = JSON.parse(product)
-//         console.log(respuestaParseada)
-//         const respParseadaJson = respuestaParseada
-
-
-//     } catch(error){
-//         console.log(error)
-//     }
-// }
-
-// updateProduct()
