@@ -52,11 +52,12 @@ class ProductManager{
     getProductById = async (id) => {
         try{
             const getFileProduct = await fs.promises.readFile(this.path, 'utf-8')
-            const product = JSON.parse(getFileProduct)
-            console.log(product[id-1]);
+            const productParse = JSON.parse(getFileProduct)
+            if (!productParse[id - 1]) return 'error, no existe el producto'
+            return productParse[id - 1]
         }
         catch(error){
-            console.log(error);
+            return error
         }
     }
 

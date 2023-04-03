@@ -32,10 +32,10 @@ app.get("/productos", async (req,res)=>{
     }
 })
 
-app.get("/productos/:id", async (req, res)=>{
+app.get("/productos/:pid", async (req, res)=>{
     try {
-        const {id} = req.params
-        const productDb = await product.getProductById(parseInt(id))
+        const {pid} = req.params
+        const productDb = await product.getProductById(parseInt(req.params.pid))
         if (!productDb){
             return res.send({status: 'error', error: 'Product not found'})
         }
