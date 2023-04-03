@@ -42,10 +42,10 @@ class ProductManager{
     getProducts = async () => {
         try{            
             const getFileProducts = await fs.promises.readFile(this.path, 'utf-8')
-            console.log(getFileProducts)
+            return JSON.parse(getFileProducts)
 
         } catch(error){
-            console.log(error);
+            return []
         }
     }
 
@@ -91,29 +91,5 @@ class ProductManager{
 
 }
 
-const instancia = new ProductManager();
-
-instancia.addProduct('Recital Rock', 'Divididos', 7500, 'Link', 1, 6)
-instancia.addProduct('Recital Rock', 'Las Pelotas', 8000, 'Link', 2, 4)
-instancia.addProduct('Recital Rock', 'Fito Paez', 7000, 'Link', 3, 6)
-instancia.addProduct('Recital Reagge', 'Los Cafres', 5000, 'Link', 4, 4)
-instancia.addProduct('Recital Reagge', 'Nonpalidece', 4500, 'Link', 5, 4)
-instancia.addProduct('Festival Electronica', 'Hernan Cattaneo', 10000, 'Link', 6, 2)
-instancia.addProduct('Festival Electronica', 'Moonpark', 20000, 'Link', 7, 10)
-instancia.addProduct('Recital Cumbia', 'Damas Gratis', 3000, 'Link', 8, 8)
-instancia.addProduct('Recital Cumbia', 'La Nueva Luna', 3500, 'Link', 9, 4)
-instancia.addProduct('Recital Cumbia', 'Jambao', 3000, 'Link', 10, 6)
-
-
-// instancia.appendProduct()
-
-// instancia.getProducts();
-
-
-instancia.getProductById();
-
-// instancia.updateProduct(2,{"price": 7500, "stock": 2}); 
-
-// instancia.deleteProduct(1)
 
 module.exports = ProductManager;

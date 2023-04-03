@@ -8,37 +8,42 @@ app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 
 
-app.get("/", async (req,res)=>{
+app.get('/', (req, res) =>{
+    res.status(200).send('<h1>Bienvenidos</h1>')
+})
+
+app.get("/productos", async (req,res)=>{
     try {
-        const entradas = await product.getProducts()
-        res.send({entradas})
+        const { limit } = req.query
+        const products = await product.getProducts()
+        if(!limit) {
+            return res.send({
+                status: 'success',
+                data: products
+            })
+        }
+        return res.send({
+            status: 'success',
+            products: products.slice(0, limit)
+        })
+
     } catch (error) {
         console.log(error)   
     }
 })
 
-
-// app.get("/products", (req,res)=>{
-
-//     console.log(req.params)
-
-//     res.send({title: "producto", apellido: "spina"})
-// })
-
-
-// app.get("/products?limit=5", (req,res)=>{
-//     console.log(req.params)
-
-//     res.send({title: req.params.title, limite: "hasta 5 productos"})
-// })
-
-
-// app.get("/products/idProduct", (req,res)=>{
-//     const {idProdcut} = req.params
-//     const codigo = addProduct.find(user => user.code === idProdcut)
-//     if(!codigo) return res.send({error: 'No se encontro el codigo'})
-//     res.send(codigo)
-// })
+app.get("/productos/:id", async (req, res)=>{
+    try {
+        const {id} = req.params
+        const productDb = await product.getProductById(parseInt(id))
+        if (!productDb){
+            return res.send({status: 'error', error: 'Product not found'})
+        }
+        res.send({productDb})
+    } catch (error) {
+        console.log(error)   
+    }
+})
 
 
 app.listen(8080, ()=>{
