@@ -2,10 +2,13 @@ const express = require ("express")
 
 const fs = require('fs')
 
+const products = []
+const path = './entradas.json'
+
 class ProductManager{
-    constructor(){
-        this.products = []
-        this.path = './entradas.json'
+    constructor(path){
+        this.products = products
+        this.path = path
     }
 
     appendProduct = async () => {
@@ -49,7 +52,7 @@ class ProductManager{
         }
     }
 
-    getProductById = async (id) => {
+    getProductById = async (path, id) => {
         try{
             const getFileProduct = await fs.promises.readFile(this.path, 'utf-8')
             const productParse = JSON.parse(getFileProduct)
