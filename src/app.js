@@ -2,7 +2,7 @@ const express = require ("express")
 const ProductManager = require ("./ProductManager")
 
 const app = express()
-const product = new ProductManager("./entradas.json")
+let product = new ProductManager("./entradas.json")
 product.getProducts()
 
 
@@ -52,13 +52,13 @@ app.get("/products/:pid", async (req, res)=>{
 // POST--------------
 app.post("/products", async (req, res)=>{
     let entrada = req.body
-    let products = await product. addProduct(entrada.title, entrada.description)
+    let products = await product.addProduct(entrada.title, entrada.description)
 
     if(!entrada.title || !entrada.description) {
         return res.status(400).send({status:'error', mensaje: 'Llenar todos los campos'})
     }
-    products.push(entrada)
-    res.status(200).send({products})
+    // product.push(entrada)
+    res.status(200).send({product})
 })
 
 //PUT-------------
@@ -78,6 +78,15 @@ app.put('/products/:pid', (req,res)=>{
 
     res.send({product})
 })
+
+
+// app.delete('/products/:eid', (req, res) => {
+//     let { eid } = req.params
+//     const index = product.findIndex(entrada => entrada.id === eid)
+//     if(index === -1) res.send({status: 'error', message: 'No existe la entrada'})
+//     product = product.filter(user => user.id =distinto= eid)
+//     res.send({status: 'success', payload: product})
+// })
 
 
 const PORT = 8080
