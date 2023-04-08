@@ -50,8 +50,9 @@ app.get("/products/:pid", async (req, res)=>{
 })
 
 // POST--------------
-app.post("/products", (req, res)=>{
+app.post("/products", async (req, res)=>{
     let entrada = req.body
+    let products = await product. addProduct(entrada.title, entrada.description)
 
     if(!entrada.title || !entrada.description) {
         return res.status(400).send({status:'error', mensaje: 'Llenar todos los campos'})
