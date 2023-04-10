@@ -1,0 +1,92 @@
+[
+    {
+        "title": "Recital Rock",
+        "description": "Divididos",
+        "price": 7500,
+        "thumbnail": "Link",
+        "code": 1,
+        "stock": 6,
+        "id": 1
+    },
+    {
+        "title": "Recital Rock",
+        "description": "Las Pelotas",
+        "price": 8000,
+        "thumbnail": "Link",
+        "code": 2,
+        "stock": 4,
+        "id": 2
+    },
+    {
+        "title": "Recital Rock",
+        "description": "Fito Paez",
+        "price": 7000,
+        "thumbnail": "Link",
+        "code": 3,
+        "stock": 6,
+        "id": 3
+    },
+    {
+        "title": "Recital Reagge",
+        "description": "Los Cafres",
+        "price": 5000,
+        "thumbnail": "Link",
+        "code": 4,
+        "stock": 4,
+        "id": 4
+    },
+    {
+        "title": "Recital Reagge",
+        "description": "Nonpalidece",
+        "price": 4500,
+        "thumbnail": "Link",
+        "code": 5,
+        "stock": 4,
+        "id": 5
+    },
+    {
+        "title": "Festival Electronica",
+        "description": "Hernan Cattaneo",
+        "price": 10000,
+        "thumbnail": "Link",
+        "code": 6,
+        "stock": 2,
+        "id": 6
+    },
+    {
+        "title": "Festival Electronica",
+        "description": "Moonpark",
+        "price": 20000,
+        "thumbnail": "Link",
+        "code": 7,
+        "stock": 10,
+        "id": 7
+    },
+    {
+        "title": "Recital Cumbia",
+        "description": "Damas Gratis",
+        "price": 3000,
+        "thumbnail": "Link",
+        "code": 8,
+        "stock": 8,
+        "id": 8
+    },
+    {
+        "title": "Recital Cumbia",
+        "description": "La Nueva Luna",
+        "price": 3500,
+        "thumbnail": "Link",
+        "code": 9,
+        "stock": 4,
+        "id": 9
+    },
+    {
+        "title": "Recital Cumbia",
+        "description": "Jambao",
+        "price": 3000,
+        "thumbnail": "Link",
+        "code": 10,
+        "stock": 6,
+        "id": 10
+    }
+]

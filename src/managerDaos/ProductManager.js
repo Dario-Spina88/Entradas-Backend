@@ -1,5 +1,4 @@
-const express = require ("express")
-
+// const express = require ("express")
 const fs = require('fs')
 
 const products = []
@@ -17,6 +16,7 @@ class ProductManager{
     }
 
     addProduct = async (title, description, price, thumbnail, code, stock) => {
+        await this.getProducts()
         const product = {
         title, 
         description, 
@@ -36,6 +36,7 @@ class ProductManager{
         if (Object.values(product).every(obj => obj)){
             this.products.push(product)
             this.appendProduct()
+            return {productos: this.products}
         }else{
             return console.log("completar todos los campos")
         }
@@ -43,8 +44,11 @@ class ProductManager{
     }
 
     getProducts = async () => {
+        
         try{            
             const getFileProducts = await fs.promises.readFile(this.path, 'utf-8')
+            this.products = JSON.parse(getFileProducts)
+            // console.log(this.products, 'product')
             return JSON.parse(getFileProducts)
 
         } catch(error){

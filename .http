@@ -1,0 +1,32 @@
+GET http://localhost:8080/api/products
+
+###
+POST http://localhost:8080/api/products
+Content-Type: application/json
+
+{
+    "title":"Recital Rock",
+    "description": "La Renga",
+    "price": 5000,
+    "thumbnail": "Link",
+    "code": 11,
+    "stock": 6,
+    "id": 11
+}
+
+###
+PUT http://localhost:8080/api/products
+Content-Type: application/json
+
+{
+    "title":"div",
+    "description": "campo",
+    "price": 3000,
+    "thumbnail": "Link",
+    "code": 100,
+    "stock": 6,
+    "id": 14
+}
+
+###
+GET http://localhost:8080/api/products/
