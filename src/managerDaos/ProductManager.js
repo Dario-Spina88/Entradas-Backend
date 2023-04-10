@@ -2,7 +2,7 @@
 const fs = require('fs')
 
 const products = []
-const path = './entradas.json'
+const path = './products.json'
 
 class ProductManager{
     constructor(path){
